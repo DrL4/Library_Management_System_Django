@@ -5,7 +5,7 @@ Library Management System Project created with Django. Developed web services us
 
 **Prerequisite:** 
 
-Backend: <code>[Python](https://github.com/mrankitgupta/PythonLessons)</code> 📑 & <code>[Django Framework](https://github.com/mrankitgupta)</code> 🗂️
+Backend: <code>[Python](https://github.com/mrankitgupta/Python-Roadmap)</code> 📑 & <code>[Django Framework](https://github.com/mrankitgupta)</code> 🗂️
 
 Frontend: <code>[HTML](https://github.com/mrankitgupta)</code> & <code>[CSS](https://github.com/mrankitgupta)</code>
 
@@ -77,7 +77,7 @@ Frontend: <code>[HTML](https://github.com/mrankitgupta)</code> & <code>[CSS](htt
 
 ## Technologies used ⚙️
 
-* <a href="https://github.com/mrankitgupta/Python-Lessons">Python</a> <a href="https://github.com/mrankitgupta/Python-Lessons" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="25" height="20"/> </a>
+* <a href="https://github.com/mrankitgupta/Python-Roadmap">Python</a> <a href="https://github.com/mrankitgupta/Python-Roadmap" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="25" height="20"/> </a>
 
 * <a href="https://github.com/mrankitgupta">Django</a> <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://github.com/mrankitgupta/mrankitgupta/blob/main/images/icons8-django.svg" alt="django" width="40" height="30"/> </a>
 
