@@ -20,4 +20,13 @@ urlpatterns = [
 
     path("delete_book/<int:myid>/", views.delete_book, name="delete_book"),
     path("delete_student/<int:myid>/", views.delete_student, name="delete_student"),
-]
+    
+    #====================================================================================================
+    path('book/<int:id>/', views.book_detail, name='book_detail'),
+    path('book/view_books_student/', views.view_books_student, name='view_books_student'),
+    path('book/confirm_rent_view/<int:id>/', views.confirm_rent_view, name='confirm_rent_view'),
+    path('book/rent_book_view/<int:id>/', views.rent_book_view, name='rent_book_view'),
+    path('book/return_book_view/<int:id>/', views.return_book_view, name='return_book_view'),
+    path('book/edit_book/<int:book_id>/', views.edit_book, name='edit_book'),
+    path('book/category/', views.category_view, name='category_view'),
+] 

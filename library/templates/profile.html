@@ -4,108 +4,139 @@
 
 {% block css %}
 <style>
-.profile{
-padding: 3%;
-margin-top: 3%;
-margin-bottom: 3%;
-border-radius: 0.5rem;
-background: #fff;
-}
-.profile-img{
-text-align: center;
-}
-.profile-img .file {
-position: relative;
-overflow: hidden;
-margin-top: -20%;
-width: 70%;
-border: none;
-border-radius: 0;
-font-size: 15px;
-background: #212529b8;
-}
+    /*
+    .profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+    }
+    .profile-img{
+    text-align: center;
+    }
+    .profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20%;
+    width: 70%;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: #212529b8;
+    }*/
+
+    .profile_buttons {
+        margin-top: 10px;
+    }
+    #books {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #books td,
+    #books th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #books tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #books tr:hover {
+        background-color: #ddd;
+    }
+
+    #books th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4caf50;
+        color: white;
+    }
 </style>
 {% endblock %}
 {% block body %}
 
-<div class="container profile">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-img">
-                    <img src="{{user.student.image.url}}" alt="" width="310px" height="270px">
+
+<div class="row">
+    <div class="col-md-3 border-right">
+
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" width="150px" src="{{user.student.image.url}}" alt="">
+            <h4>
+                <strong>{{ user.username }}</strong>
+        
+            </h4>
+            <a href="{% url 'edit_profile' %}"><button class="btn btn-success profile_buttons">Edit my profile
+                    <i class="fas fa-user-edit"></i></button></a>
+            <p><strong>Join date</strong> <br>{{ user.date_joined|date:"F j, Y" }}</p>
+            <p><strong>Last login date </strong><br>{{ user.last_login|date:"F j, Y" }}</p>
+            <p><strong>Email </strong><br>{{ user.email }}</p>
+            
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <div class="alert alert-info" role="alert">
+                    {{ message }}
                 </div>
-            </div>
-            <div class="col-md-8">
-                <div class="profile-tab">
-                    <div class="tab-pane">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>ID:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.id}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Username:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Full Name:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.get_full_name}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.email}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone Number:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.student.phone}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Branch:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.student.branch}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Class:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.student.classroom}}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Roll Number:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{user.student.roll_no}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="/edit_profile/" style="width: 9rem;" class="btn btn-outline-primary mt-3">Edit Profile</a>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
                 </div>
-            </div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    
+        <h2>Your rented books:</h2>
+        {% block book_rent_history %}
+        <table style="width:100%" id="books">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Rent Date</th>
+                    <th>Return Date</th>
+                    <th>Days</th>
+                    <th>Fine</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the book rent history data and display each row -->
+                {% for rent in user.books.all %}
+                <tr>
+                    <td>{{ rent.book.name }}</td>
+                    <td>{{ rent.rent_date }}</td>
+                    <td>{{ rent.back_date }}</td>
+                    <td>{{ rent.how_many_days }}</td>
+                    <td>{{ rent.fine }}</td>
+                    <td>
+                        <a href="{% url 'return_book_view' id=rent.book.id %}" class="btn btn-primary">Return</a>
+
+                        {% if rent.book.pdf %}
+                            <a href="{{ rent.book.pdf.url }}" class="btn btn-outline-primary">View PDF</a>
+                        {% else %}
+                            <span class="text-muted">No PDF</span>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        {% endblock %}
+
+    </div>
 </div>
-</div>
+{% endblock %}
+
+{% block js %}
 {% endblock %}

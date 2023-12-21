@@ -1,0 +1,78 @@
+{% extends 'student_navbar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+<style>
+    .bookDetailLeftSide {
+        text-align: center;
+    }
+    .bookDetailLeftSide .bookImage {
+        max-width: 200px;
+    }
+    .bookImage {
+        max-height: 300px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+{% comment %} <div class="container mt-4">
+    <div class="row justify-content-center">
+        {% for book in books %}
+        <div class="col-md-4 ">
+            <div class="card mb-4">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{ book.cover.url }}" class="card-img " alt="Book Cover">
+                        <br/><br/>
+                        {% if book.book_amount > 0 %}
+                        <a href="{% url 'confirm_rent_view' id=book.id %}" class="btn btn-danger">Rent</a>
+                        <p class="card-text"><strong>Available Book amount: {{ book.book_amount }}</strong></p>
+                        {% else %}
+                        <p class="card-text"><strong>Available Book amount:</strong> none</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ book.name }}</h5>
+                            <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                            <p class="card-text"><strong>ISBN Number:</strong> {{ book.isbn }}</p>
+                            <p class="card-text"><strong>Number Of Pages:</strong> {{ book.number_of_pages }}</p>
+                            <p class="card-text"><strong>Publish Date:</strong> {{ book.publish_date }}</p>
+                            <p class="card-text"><strong>Category:</strong> {{ book.category }}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
+
+<div class="container mt-4">
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 bookDetailLeftSide">
+            <img src="{{ book.cover.url }}" class="bookImage" alt="Book Cover">
+            <br/><br/>
+            {% if book.book_amount > 0 %}
+            <a href="{% url 'confirm_rent_view' id=book.id %}" class="btn btn-danger">Rent</a>
+            <p class="card-text"><strong>Available Book amount: {{ book.book_amount }}</strong></p>
+            {% else %}
+            <p class="card-text"><strong>Available Book amount:</strong> none</p>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h5><strong>Title:</strong> {{ book.name }} </h5>
+            <h5><strong>Author:</strong> {{ book.author }}</h5>
+            <h5><strong>Category:</strong> {{ book.category }}</h5>
+            <h6><strong>ISBN:</strong> {{ book.isbn }}</h6>
+            <h6><strong>Number of pages:</strong> {{ book.number_of_pages }}</h6>
+            <hr class="my-4">
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

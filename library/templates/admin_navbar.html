@@ -14,7 +14,7 @@
     {% endblock %}
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Library Management System</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,16 +34,17 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="/add_book/">Add Books</a></li>
                   <li><a class="dropdown-item" href="/view_books/">View All Books</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category_view' %}">View Categories</a></li>
                 </ul>
               </li>
               &nbsp;&nbsp;&nbsp;
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Issue Book
+                  Rented Book
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/issue_book/">Issue A Book</a></li>
-                  <li><a class="dropdown-item" href="/view_issued_book/">View All Issued Books</a></li>
+                  {% comment %} <li><a class="dropdown-item" href="/issue_book/">Issue A Book</a></li> {% endcomment %}
+                  <li><a class="dropdown-item" href="/view_issued_book/">View All Rented Books</a></li>
                 </ul>
               </li>
               &nbsp;&nbsp;&nbsp;
@@ -57,7 +58,7 @@
             </ul>
           </div>
         </div>
-      </nav>
+    </nav>
       {% block body %}
       {% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -79,8 +80,9 @@
             'copyHtml5',
             'excelHtml5',
             'csvHtml5',
-            'pdfHtml5'
-          ]
+            'pdfHtml5',
+          ],
+          pageLength: 5,
         });
       });
     </script>
