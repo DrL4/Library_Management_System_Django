@@ -5,73 +5,86 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-        <br>
-        <h1 class="text-center"><u>Student Registration</u></h1>
-    <div class="row mt-4">
-        <div class="form-group col-md-12">
-            <label><i style="font-weight: bold;">Username</i></label>
-            <input type="text" class="form-control mt-2" name="username" placeholder="Enter Username" required>
+    <form method="POST" enctype="multipart/form-data"> 
+        {% csrf_token %}
+            <br>
+            <h1 class="text-center"><u>Student Registration</u></h1>
+        <div class="row mt-4">
+            <div class="form-group col-md-12">
+                <label><i style="font-weight: bold;">Username</i></label>
+                <input type="text" class="form-control mt-2" name="username" placeholder="Enter Username" required>
+            </div>
         </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">First Name</i></label>
-            <input type="text" class="form-control mt-2" name="first_name" placeholder="Enter First Name" required>
+        <div class="row mt-4">
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">First Name</i></label>
+                <input type="text" class="form-control mt-2" name="first_name" placeholder="Enter First Name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Last Name</i></label>
+                <input type="text" class="form-control mt-2" name="last_name" placeholder="Enter Last Name" required>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Last Name</i></label>
-            <input type="text" class="form-control mt-2" name="last_name" placeholder="Enter Last Name" required>
-        </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Email</i></label>
-            <input type="email" class="form-control mt-2" name="email" placeholder="Enter Email" required>
+        <div class="row mt-4">
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Email</i></label>
+                <input type="email" class="form-control mt-2" name="email" placeholder="Enter Email" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Mobile Number</i></label>
+                <input type="number" class="form-control mt-2" name="phone" placeholder="Enter Mobile Number" required>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Mobile Number</i></label>
-            <input type="number" class="form-control mt-2" name="phone" placeholder="Enter Mobile Number" required>
-        </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Branch Name</i></label>
-            <input type="text" class="form-control mt-2" name="branch" placeholder="Enter Branch Name" required>
+        <div class="row mt-4">
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Branch Name</i></label>
+                <select class="form-control mt-2" name="branch" required>
+                    {% for branch in branches %}
+                        <option value="{{ branch.title }}">{{ branch.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Classroom Name</i></label>
+                <select class="form-control mt-2" name="classroom" required>
+                    {% for classroom in classrooms %}
+                        <option value="{{ classroom.title }}">{{ classroom.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Class Name</i></label>
-            <input type="text" class="form-control mt-2" name="classroom" placeholder="Enter Class Name" required>
-        </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Roll Number</i></label>
-            <input type="text" class="form-control mt-2" name="roll_no" placeholder="Enter Roll Number" required>
+        <div class="row mt-4">
+            <div class="form-group col-md-4">
+                <label><i style="font-weight: bold;">Roll Number</i></label>
+                <input type="text" class="form-control mt-2" name="roll_no" placeholder="Enter Roll Number" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label><i style="font-weight: bold;">Student Front Card Image</i></label>
+                <input type="file" class="form-control mt-2" name="image" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label><i style="font-weight: bold;">Student Back Card Image</i></label>
+                <input type="file" class="form-control mt-2" name="image" required>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Student Card Image</i></label>
-            <input type="file" class="form-control mt-2" name="image" required>
-        </div>
-    </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Password</i></label>
-            <input type="password" class="form-control mt-2" name="password" placeholder="Enter Password" required>
+        <div class="row mt-4">
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Password</i></label>
+                <input type="password" class="form-control mt-2" name="password" placeholder="Enter Password" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label><i style="font-weight: bold;">Confirm Password</i></label>
+                <input type="password" class="form-control mt-2" name="confirm_password" placeholder="Confirm Password" required>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label><i style="font-weight: bold;">Confirm Password</i></label>
-            <input type="password" class="form-control mt-2" name="confirm_password" placeholder="Confirm Password" required>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-outline-primary mt-4">Register As Student</button>
+        <button type="submit" class="btn btn-outline-primary mt-4">Register As Student</button>
+    </form>
 </div>
-</form>
 {% endblock %}
 {% block js %}
 <script>

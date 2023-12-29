@@ -17,17 +17,25 @@ def add_book(request):
         name = request.POST['name']
         author = request.POST['author']
         isbn = request.POST['isbn']
-        category = request.POST['category']
+        
         cover = request.FILES.get('cover')
         pdf = request.FILES.get('pdf')
         book_amount = request.POST['book_amount']
         number_of_pages = request.POST['number_of_pages']
 
+        category_title = request.POST.get('category')
+
+        category = Category.objects.get(title=category_title)
+        
         books = Book.objects.create(name=name, author=author, isbn=isbn, category=category, pdf=pdf, book_amount=book_amount, number_of_pages=number_of_pages, cover=cover)
         books.save()
         alert = True
         return render(request, "add_book.html", {'alert':alert})
-    return render(request, "add_book.html")
+    
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    
+    return render(request, "add_book.html", context)
 
 @login_required(login_url = '/admin_login')
 def view_books(request):
@@ -163,8 +171,14 @@ def student_registration(request):
         last_name = request.POST['last_name']
         email = request.POST['email']
         phone = request.POST['phone']
-        branch = request.POST['branch']
-        classroom = request.POST['classroom']
+        
+        branch_title = request.POST.get('branch')
+
+        branch = Branch.objects.get(title=branch_title)
+        classroom_title = request.POST.get('classroom')
+        
+        classroom = Class.objects.get(title=classroom_title)
+        
         roll_no = request.POST['roll_no']
         image = request.FILES['image']
         password = request.POST['password']
@@ -180,7 +194,12 @@ def student_registration(request):
         student.save()
         alert = True
         return render(request, "student_registration.html", {'alert':alert})
-    return render(request, "student_registration.html")
+    
+    branches = Branch.objects.all()
+    classrooms = Class.objects.all()
+    context = {'branches': branches, 'classrooms': classrooms}
+    
+    return render(request, "student_registration.html", context)
 
 def student_login(request):
     if request.method == "POST":
@@ -339,14 +358,30 @@ from .models import Category
 
 def category_view(request):
     categories = Category.objects.all()
-
-    if request.method == 'POST':
-        # Handle form submission for adding a new category
-        title = request.POST.get('title')
-        Category.objects.create(title=title)
-        return redirect('category.html')
-
     return render(request, 'category.html', {'categories': categories})
+
+
+from django.shortcuts import render
+from .models import Book, Category
+
+from django.shortcuts import render
+from .models import Book
+
+def search_by_category(request):
+    category = request.GET.get('category')
+    books = Book.objects.filter(category__title__icontains=category)
+    return render(request, 'search_book.html', {'books': books})
+
+
+def add_category(request):
+    if request.method == "POST":
+        title = request.POST['title']
+
+        category = Category.objects.create(title=title)
+        category.save()
+        alert = True
+        return render(request, "add_category.html", {'alert':alert})
+    return render(request, "add_category.html")
 
 
 def edit_category(request, category_id):
@@ -364,9 +399,5 @@ def edit_category(request, category_id):
 def delete_category(request, category_id):
     category = Category.objects.get(id=category_id)
 
-    if request.method == 'POST':
-        # Handle form submission for deleting the category
-        category.delete()
-        return redirect('category_view')
-
-    return render(request, 'delete_category.html', {'category': category})
+    category.delete()
+    return redirect('category_view')

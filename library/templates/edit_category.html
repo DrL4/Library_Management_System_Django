@@ -1,0 +1,30 @@
+{% extends 'admin_navbar.html' %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <form method="POST" action="{% url 'edit_category' category.id %}" enctype="multipart/form-data"> 
+        {% csrf_token %}
+
+        <div class="row mt-4">
+            <div class="form-group col-md-4">
+                <label><i style="font-weight: bold;">New category</i></label>
+                <input type="text" class="form-control mt-2" name="title" value="{{category.title}}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary mt-3">Update Category</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Category Updated Successfully.")
+    document.location = "/edit_category"
+    {% endif %}
+</script>
+{% endblock %}

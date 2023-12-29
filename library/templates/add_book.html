@@ -8,14 +8,12 @@
     <form method="POST" enctype="multipart/form-data"> 
         {% csrf_token %}
         <div class="row mt-4">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Book Name</i></label>
                 <input type="text" class="form-control mt-2" name="name" placeholder="Enter name of the Book" required>
             </div>
-        </div>
 
-        <div class="row mt-4">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Author Name</i></label>
                 <input type="text" class="form-control mt-2" name="author" placeholder="Enter name of the Author" required>
             </div>
@@ -29,28 +27,24 @@
         </div>
 
         <div class="row mt-4">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Choose PDF Book</i></label>
                 <input type="file" class="form-control mt-2" id="pdf" name="pdf" accept=".pdf" placeholder="Report Attachment" enctype="multipart/form-data">
             </div>
-        </div>
 
-        <div class="row mt-4">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Choose Book Cover</i></label>
                 <input type="file" class="form-control mt-2" id="cover" name="cover" accept=".jpg, .jpeg, .png, .webp" placeholder="Report Attachment" enctype="multipart/form-data">
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Number Of Pages</i></label>
                 <input type="number" class="form-control mt-2" name="number_of_pages" placeholder="Enter number of pages" required>
             </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="form-group col-md-12">
+        
+            <div class="form-group col-md-6">
                 <label><i style="font-weight: bold;">Number Of Copy</i></label>
                 <input type="number" class="form-control mt-2" name="book_amount" placeholder="Enter number of copy" required>
             </div>
@@ -61,7 +55,7 @@
                 <label><i style="font-weight: bold;">Category</i></label>
                 <select class="form-control mt-2" name="category" required>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.title }}</option>
+                        <option value="{{ category.title }}">{{ category.title }}</option>
                     {% endfor %}
                 </select>
             </div>

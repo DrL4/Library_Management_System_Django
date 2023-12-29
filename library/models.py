@@ -20,7 +20,7 @@ class Book(models.Model):
     available = models.BooleanField(default=True)
     cover = models.ImageField(upload_to='bookapp/covers/', null=True, blank=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="books", null=True)
+        Category, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return str(self.name) + " ["+str(self.isbn)+']'
@@ -44,14 +44,29 @@ class Book(models.Model):
             cover.save(self.cover.path)
 
 
+class Branch(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
+    
+
+class Class(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    classroom = models.CharField(max_length=10)
-    branch = models.CharField(max_length=10)
+    classroom = models.ForeignKey(
+        Class, on_delete=models.CASCADE, null=False)
+    branch = models.ForeignKey(
+        Branch, on_delete=models.CASCADE, null=False)
     roll_no = models.CharField(max_length=3, blank=True)
     phone = models.CharField(max_length=10, blank=True)
     image = models.ImageField(default='default.png',upload_to="profile_pics", blank=True)
+    image_back = models.ImageField(default='default.png',upload_to="profile_pics", blank=True)
 
     def __str__(self):
         return str(self.user) + " ["+str(self.branch)+']' + " ["+str(self.classroom)+']' + " ["+str(self.roll_no)+']'
@@ -65,6 +80,16 @@ class Student(models.Model):
             output_size = (200, 200)
             img.thumbnail(output_size)
             img.save(self.image.path)
+            
+    def save(self, **kwargs):
+        super().save()
+
+        img2 = Image.open(self.image_back.path)
+
+        if img2.height > 200 or img2.width > 200:
+            output_size = (200, 200)
+            img2.thumbnail(output_size)
+            img2.save(self.image_back.path)
 
 def expiry():
     return datetime.today() + timedelta(days=14)

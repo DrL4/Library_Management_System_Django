@@ -29,4 +29,9 @@ urlpatterns = [
     path('book/return_book_view/<int:id>/', views.return_book_view, name='return_book_view'),
     path('book/edit_book/<int:book_id>/', views.edit_book, name='edit_book'),
     path('book/category/', views.category_view, name='category_view'),
+    path("add_category/", views.add_category, name="add_category"),
+    path('book/edit_category/<int:category_id>/', views.edit_category, name='edit_category'),
+    path("delete_category/<int:category_id>/", views.delete_category, name="delete_category"),
+    path("search/", views.search_by_category, name="search_by_category"),
+
 ] 

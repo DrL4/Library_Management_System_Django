@@ -1,0 +1,29 @@
+{% extends 'admin_navbar.html' %}
+{% load static %}
+{% block title %} Library Management System {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <form method="POST" action="{% url 'add_category' %}" enctype="multipart/form-data"> 
+        {% csrf_token %}
+        <div class="row mt-4">
+            <div class="form-group col-md-12">
+                <label><i style="font-weight: bold;">Category Name</i></label>
+                <input type="text" class="form-control mt-2" name="title" placeholder="Enter name of the Category" required>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-outline-primary mt-4">Add Category</button>
+    </form>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("Category is added successfully.")
+    document.location = "/add_category"
+    {% endif %}
+</script>
+{% endblock %}

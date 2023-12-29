@@ -29,6 +29,7 @@
             box-shadow: 3px 3px 10px 0px black;
         }
     </style> {% endcomment %}
+    
     <style>
     
         /*  Helper Styles */
@@ -131,7 +132,9 @@
             }
         }
     </style>
+
     {% endblock %}
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -164,6 +167,7 @@
     </nav>
     
     {% block body %}
+
     <div class="container mt-4">
         <h1 class="text-center"><u>All Books</u></h1>
         {% if books %}
@@ -179,10 +183,6 @@
                             No Cover Image
                             {% endif %}
                         </div>
-        
-                        {% if not book.available %}  <!-- Add this if statement -->
-                        <a class="card-action" href="#"><i class="fa fa-heart">{{ book.available }}</i></a>
-                        {% endif %}
                         <div class="card-heading">
                             {{ book.name }}
                         </div>
