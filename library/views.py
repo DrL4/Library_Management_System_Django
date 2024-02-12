@@ -61,7 +61,7 @@ def issue_book(request):
             return render(request, "issue_book.html", {'obj':obj, 'alert':alert})
     return render(request, "issue_book.html", {'form':form})
 
-@login_required(login_url = '/admin_login')
+#@login_required(login_url = '/admin_login')
 # def view_issued_book(request):
 #     issuedBooks = IssuedBook.objects.all()
 #     details = []
